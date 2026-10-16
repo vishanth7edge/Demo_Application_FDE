@@ -38,8 +38,8 @@ selections visible on the next open.
 ## API calls
 
 - All HTTP goes through one client module in `src/shared/` (auth header, refresh, error
-  handling in one place). Domain code calls it from `infrastructure/`, never `fetch`/axios
-  directly in components.
+  handling in one place). Domain code calls it from `application/` services
+  (`<name>.service.ts`), never `fetch`/axios directly in components or hooks.
 - Each API function has typed `Input` / `Result` types. Results are a discriminated union
   such as `{ error: false; data: T } | { error: true; status?: number; details?: FieldError[] }`
   so callers must narrow before touching `data`.

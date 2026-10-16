@@ -22,22 +22,28 @@ Do not restate them in review comments; run the tool.
 
 Feature code lives in domains, each split into layers:
 
+This is the layout `arcguard scaffold` generates:
+
 ```
 src/domains/<domain>/
-  presentation/    # components, pages: render only
-  application/     # hooks and use-cases that orchestrate domain + infrastructure
+  presentation/    # components (scaffold component) and hooks (scaffold hook)
+  application/     # services (scaffold service): API calls and business logic
   domain/          # types, pure business rules: imports nothing outward
-  infrastructure/  # API calls, storage, external SDKs
+  infrastructure/  # implementations of domain interfaces (storage, external SDKs)
   index.ts         # barrel: the only entry point other code may import
 src/shared/        # cross-domain UI and utilities, no domain knowledge
 ```
 
 - Allowed dependencies: presentation → application → domain; infrastructure → domain.
   Presentation never imports infrastructure directly.
+- Hooks live in `presentation/` next to the components that use them. They hold UI state and
+  call `application/` services; they never call the API or contain business logic themselves
+  (ArchGuard `ddd/no-business-logic-in-presentation` flags this).
 - A domain never imports another domain's internals. Go through its `index.ts`, or move the
   shared piece to `src/shared/`.
 - No circular imports. Max folder depth is 6.
-- No API calls or business logic in presentation files: move them into an `application/` hook.
+- `scaffold` output is a stub that does not pass this repo's ESLint (no return types, empty
+  props interface/pattern, empty class). Fill it in before finishing.
 
 ## Naming
 
