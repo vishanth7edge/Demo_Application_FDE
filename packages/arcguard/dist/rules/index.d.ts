@@ -1,0 +1,25 @@
+import { Rule } from '../types';
+import noDeepNesting from './structure/no-deep-nesting';
+import featureFolder from './structure/feature-folder';
+import barrelFile from './structure/barrel-file';
+import componentPascalCase from './naming/component-pascal-case';
+import hookPrefix from './naming/hook-prefix';
+import serviceSuffix from './naming/service-suffix';
+import testSuffix from './naming/test-suffix';
+import constantsUpperCase from './naming/constants-upper-case';
+import contextSuffix from './naming/context-suffix';
+import enumPascalCase from './naming/enum-pascal-case';
+import noCrossDomain from './ddd/no-cross-domain';
+import layerDependency from './ddd/layer-dependency';
+import noDomainBypass from './ddd/no-domain-bypass';
+import noBusinessLogicInPresentation from './ddd/no-business-logic-in-presentation';
+import noCircular from './dependency/no-circular';
+import propsInterfaceRequired from './reusability/props-interface-required';
+import noHardcodedStyles from './reusability/no-hardcoded-styles';
+import noStoreInSharedComponent from './reusability/no-store-in-shared-component';
+import maxComponentLines from './reusability/max-component-lines';
+import noDuplicateBlocks from './reusability/no-duplicate-blocks';
+export { default as enforceModuleBoundaries } from './nx/enforce-module-boundaries';
+export declare const ALL_RULES: Rule[];
+export { noDeepNesting, featureFolder, barrelFile, componentPascalCase, hookPrefix, serviceSuffix, testSuffix, constantsUpperCase, contextSuffix, enumPascalCase, noCrossDomain, layerDependency, noDomainBypass, noBusinessLogicInPresentation, noCircular, propsInterfaceRequired, noHardcodedStyles, noStoreInSharedComponent, maxComponentLines, noDuplicateBlocks, };
+//# sourceMappingURL=index.d.ts.map

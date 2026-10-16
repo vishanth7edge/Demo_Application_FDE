@@ -1,0 +1,7 @@
+{
+  "include": ["src/**/*.{ts,tsx}"],
+  "exclude": ["**/node_modules/**", "**/dist/**", "**/*.d.ts", "**/coverage/**"],
+  "rules": {
+    "naming/enum-pascal-case": false
+  }
+}

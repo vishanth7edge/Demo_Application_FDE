@@ -1,0 +1,1 @@
+{"version":3,"file":"get-context.js","sourceRoot":"","sources":["../../../src/mcp/tools/get-context.ts"],"names":[],"mappings":";;AAEA,4CAMC;AARD,oCAA0D;AAEnD,KAAK,UAAU,gBAAgB,CACpC,IAA6B,EAC7B,cAAsB;IAEtB,MAAM,WAAW,GAAG,OAAO,IAAI,CAAC,WAAW,KAAK,QAAQ,CAAC,CAAC,CAAC,IAAI,CAAC,WAAW,CAAC,CAAC,CAAC,cAAc,CAAC;IAC7F,OAAO,IAAA,yBAAiB,EAAC,WAAW,CAAC,CAAC;AACxC,CAAC"}

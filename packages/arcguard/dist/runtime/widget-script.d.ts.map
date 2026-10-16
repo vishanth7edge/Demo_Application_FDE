@@ -1,0 +1,1 @@
+{"version":3,"file":"widget-script.d.ts","sourceRoot":"","sources":["../../src/runtime/widget-script.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,aAAa;IAC5B,UAAU,EAAE,MAAM,CAAC;IACnB,WAAW,CAAC,EAAE,MAAM,CAAC;CACtB;AAED,wBAAgB,oBAAoB,CAAC,EAAE,UAAU,EAAE,WAAgB,EAAE,EAAE,aAAa,GAAG,MAAM,CAgrE5F"}

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "arcguard": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["packages/arcguard/dist/cli/index.js", "mcp", "--project", "."]
+    }
+  }
+}

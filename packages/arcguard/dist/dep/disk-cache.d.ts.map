@@ -1,0 +1,1 @@
+{"version":3,"file":"disk-cache.d.ts","sourceRoot":"","sources":["../../src/dep/disk-cache.ts"],"names":[],"mappings":"AAuCA,cAAM,SAAS;IACb,OAAO,CAAC,GAAG,CAAY;;IAMvB,GAAG,CAAC,GAAG,EAAE,MAAM,GAAG,OAAO,GAAG,SAAS;IAUrC,GAAG,CAAC,GAAG,EAAE,MAAM,EAAE,KAAK,EAAE,OAAO,EAAE,KAAK,EAAE,MAAM,GAAG,IAAI;CAItD;AAED,eAAO,MAAM,SAAS,WAAkB,CAAC"}
