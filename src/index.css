@@ -1,8 +1,247 @@
 @import 'tailwindcss';
 
-/* Project design tokens. Use them as classes: bg-brand, text-brand, etc. */
-@theme {
+/*
+ * Project design tokens (from the Figma typography and colour guides).
+ * `static` keeps every token in the output even when no class uses it, so the `.dark`
+ * overrides below can always resolve their var() references.
+ */
+@theme static {
   --color-brand: #2563eb;
   --color-brand-foreground: #ffffff;
+
+  /* Font families */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-poppins: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Tonal palettes: --color-<palette>-<tone> */
+  --color-primary-0: #000000;
+  --color-primary-10: #001a41;
+  --color-primary-20: #002e68;
+  --color-primary-30: #004493;
+  --color-primary-40: #005bc0;
+  --color-primary-50: #0073ef;
+  --color-primary-60: #4a8eff;
+  --color-primary-70: #7fabff;
+  --color-primary-80: #adc7ff;
+  --color-primary-90: #d8e2ff;
+  --color-primary-95: #edf0ff;
+  --color-primary-99: #fefbff;
+  --color-primary-100: #ffffff;
+
+  --color-secondary-0: #000000;
+  --color-secondary-10: #00201e;
+  --color-secondary-20: #003734;
+  --color-secondary-30: #00504c;
+  --color-secondary-40: #006a65;
+  --color-secondary-50: #00857f;
+  --color-secondary-60: #00a29a;
+  --color-secondary-70: #35beb5;
+  --color-secondary-80: #59dad1;
+  --color-secondary-90: #90f3eb;
+  --color-secondary-95: #b1fff8;
+  --color-secondary-99: #fefbff;
+  --color-secondary-100: #ffffff;
+
+  --color-tertiary-0: #000000;
+  --color-tertiary-10: #171c1f;
+  --color-tertiary-20: #2c3134;
+  --color-tertiary-30: #43474b;
+  --color-tertiary-40: #5a5f62;
+  --color-tertiary-50: #73787b;
+  --color-tertiary-60: #8d9195;
+  --color-tertiary-70: #a7acb0;
+  --color-tertiary-80: #c3c7cb;
+  --color-tertiary-90: #dfe3e7;
+  --color-tertiary-95: #edf1f5;
+  --color-tertiary-99: #fbfcff;
+  --color-tertiary-100: #ffffff;
+
+  --color-error-0: #000000;
+  --color-error-10: #410004;
+  --color-error-20: #68000b;
+  --color-error-30: #930014;
+  --color-error-40: #bb1623;
+  --color-error-50: #df3438;
+  --color-error-60: #ff5352;
+  --color-error-70: #ff8982;
+  --color-error-80: #ffb3ae;
+  --color-error-90: #ffdad7;
+  --color-error-95: #ffedeb;
+  --color-error-99: #fffbff;
+  --color-error-100: #ffffff;
+
+  --color-neutral-0: #000000;
+  --color-neutral-10: #1b1b1f;
+  --color-neutral-20: #2f3033;
+  --color-neutral-30: #46464a;
+  --color-neutral-40: #5e5e62;
+  --color-neutral-50: #77777a;
+  --color-neutral-60: #919094;
+  --color-neutral-70: #ababaf;
+  --color-neutral-80: #c7c6ca;
+  --color-neutral-90: #e3e2e6;
+  --color-neutral-95: #f2f0f4;
+  --color-neutral-99: #fefbff;
+  --color-neutral-100: #ffffff;
+
+  --color-neutral-variant-0: #000000;
+  --color-neutral-variant-10: #191c22;
+  --color-neutral-variant-20: #2d3038;
+  --color-neutral-variant-30: #44474f;
+  --color-neutral-variant-40: #5c5e66;
+  --color-neutral-variant-50: #74777f;
+  --color-neutral-variant-60: #8e9099;
+  --color-neutral-variant-70: #a9abb4;
+  --color-neutral-variant-80: #c4c6d0;
+  --color-neutral-variant-90: #e1e2ec;
+  --color-neutral-variant-95: #eff0fa;
+  --color-neutral-variant-99: #fefbff;
+  --color-neutral-variant-100: #ffffff;
+
+  /* Colour roles, light theme (dark overrides are in the .dark block below) */
+  --color-primary: var(--color-primary-40);
+  --color-on-primary: var(--color-primary-100);
+  --color-primary-container: var(--color-primary-90);
+  --color-on-primary-container: var(--color-primary-30);
+  --color-secondary: var(--color-secondary-40);
+  --color-on-secondary: var(--color-secondary-100);
+  --color-secondary-container: var(--color-secondary-90);
+  --color-on-secondary-container: var(--color-secondary-30);
+  --color-tertiary: var(--color-tertiary-40);
+  --color-on-tertiary: var(--color-tertiary-100);
+  --color-tertiary-container: var(--color-tertiary-90);
+  --color-on-tertiary-container: var(--color-tertiary-30);
+  --color-error: var(--color-error-40);
+  --color-on-error: var(--color-error-100);
+  --color-error-container: var(--color-error-90);
+  --color-on-error-container: var(--color-error-30);
+
+  /* Fixed roles (identical in light and dark) */
+  --color-primary-fixed: var(--color-primary-90);
+  --color-primary-fixed-dim: var(--color-primary-80);
+  --color-on-primary-fixed: var(--color-primary-10);
+  --color-on-primary-fixed-variant: var(--color-primary-30);
+  --color-secondary-fixed: var(--color-secondary-90);
+  --color-secondary-fixed-dim: var(--color-secondary-80);
+  --color-on-secondary-fixed: var(--color-secondary-10);
+  --color-on-secondary-fixed-variant: var(--color-secondary-30);
+  --color-tertiary-fixed: var(--color-tertiary-90);
+  --color-tertiary-fixed-dim: var(--color-tertiary-80);
+  --color-on-tertiary-fixed: var(--color-tertiary-10);
+  --color-on-tertiary-fixed-variant: var(--color-tertiary-30);
+
+  /* Surfaces: tones such as N-98 or N-87 are not in the palettes above, so these are sampled hex */
+  --color-surface-dim: #d7d9e5;
+  --color-surface: #f9f9ff;
+  --color-surface-bright: #f9f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f1f3fe;
+  --color-surface-container: #ebedf9;
+  --color-surface-container-high: #e6e8f3;
+  --color-surface-container-highest: #e0e2ed;
+  --color-on-surface: #181c23;
+  --color-on-surface-variant: #414754;
+  --color-outline: #717786;
+  --color-outline-variant: #c1c6d7;
+  --color-inverse-surface: #2d3039;
+  --color-inverse-on-surface: #eef0fb;
+  --color-inverse-primary: var(--color-primary-80);
+  --color-scrim: #000000;
+  --color-shadow: #000000;
+
+  /*
+   * Text styles. Each style sets size, --line-height, --font-weight and --letter-spacing.
+   * Weight is omitted where the Figma label does not state one (Display, Headline, Body).
+   */
+  --text-display-large: 57px;
+  --text-display-large--line-height: 64px;
+  --text-display-large--letter-spacing: -0.25px;
+  --text-display-medium: 45px;
+  --text-display-medium--line-height: 52px;
+  --text-display-medium--letter-spacing: 0px;
+  --text-display-small: 36px;
+  --text-display-small--line-height: 44px;
+  --text-display-small--letter-spacing: 0px;
+
+  --text-headline-large: 32px;
+  --text-headline-large--line-height: 40px;
+  --text-headline-large--letter-spacing: 0px;
+  --text-headline-medium: 28px;
+  --text-headline-medium--line-height: 36px;
+  --text-headline-medium--letter-spacing: 0px;
+  --text-headline-small: 24px;
+  --text-headline-small--line-height: 32px;
+  --text-headline-small--letter-spacing: 0px;
+
+  --text-title-large: 22px;
+  --text-title-large--line-height: 28px;
+  --text-title-large--font-weight: 400;
+  --text-title-large--letter-spacing: 0px;
+  --text-title-medium: 16px;
+  --text-title-medium--line-height: 24px;
+  --text-title-medium--font-weight: 500;
+  --text-title-medium--letter-spacing: 0.15px;
+  --text-title-small: 14px;
+  --text-title-small--line-height: 20px;
+  --text-title-small--font-weight: 500;
+  --text-title-small--letter-spacing: 0.1px;
+
+  --text-label-large: 14px;
+  --text-label-large--line-height: 20px;
+  --text-label-large--font-weight: 500;
+  --text-label-large--letter-spacing: 0.1px;
+  --text-label-medium: 12px;
+  --text-label-medium--line-height: 16px;
+  --text-label-medium--font-weight: 500;
+  --text-label-medium--letter-spacing: 0.5px;
+  --text-label-small: 11px;
+  --text-label-small--line-height: 16px;
+  --text-label-small--font-weight: 500;
+  --text-label-small--letter-spacing: 0.5px;
+
+  --text-body-large: 16px;
+  --text-body-large--line-height: 24px;
+  --text-body-large--letter-spacing: 0.5px;
+  --text-body-medium: 14px;
+  --text-body-medium--line-height: 20px;
+  --text-body-medium--letter-spacing: 0.25px;
+  --text-body-small: 12px;
+  --text-body-small--line-height: 16px;
+  --text-body-small--letter-spacing: 0.4px;
+}
+
+/* Dark theme role overrides: add the `dark` class to <html> to switch every role at once */
+.dark {
+  --color-primary: var(--color-primary-80);
+  --color-on-primary: var(--color-primary-20);
+  --color-primary-container: var(--color-primary-30);
+  --color-on-primary-container: var(--color-primary-90);
+  --color-secondary: var(--color-secondary-80);
+  --color-on-secondary: var(--color-secondary-20);
+  --color-secondary-container: var(--color-secondary-30);
+  --color-on-secondary-container: var(--color-secondary-90);
+  --color-tertiary: var(--color-tertiary-80);
+  --color-on-tertiary: var(--color-tertiary-20);
+  --color-tertiary-container: var(--color-tertiary-30);
+  --color-on-tertiary-container: var(--color-tertiary-90);
+  --color-error: var(--color-error-80);
+  --color-on-error: var(--color-error-20);
+  --color-error-container: var(--color-error-30);
+  --color-on-error-container: var(--color-error-90);
+
+  --color-surface-dim: #10131b;
+  --color-surface: #10131b;
+  --color-surface-bright: #363942;
+  --color-surface-container-lowest: #0b0e16;
+  --color-surface-container-low: #181c23;
+  --color-surface-container: #1c2027;
+  --color-surface-container-high: #272a32;
+  --color-surface-container-highest: #31353d;
+  --color-on-surface: #e0e2ed;
+  --color-on-surface-variant: #c1c6d7;
+  --color-outline: #8b90a0;
+  --color-outline-variant: #414754;
+  --color-inverse-surface: #e0e2ed;
+  --color-inverse-on-surface: #2d3039;
+  --color-inverse-primary: var(--color-primary-40);
 }
