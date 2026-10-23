@@ -16,8 +16,24 @@ ArchGuard cannot check these; they come from bugs fixed in other 7Edge projects.
 | Cross-screen UI preferences                    | A global store                                              |
 | Navigation helpers (back links, breadcrumbs)   | React Context                                               |
 
-A global store is never used for form state. No state library is installed yet. Ask
-before adding one.
+A global store is never used for form state. Redux Toolkit (`@reduxjs/toolkit` + `react-redux`)
+was added on 2026-10-23 for the cart. Add a slice to `src/store/store.ts` only for state that
+several screens share; ask before adding another state library.
+
+## Redux
+
+- One slice per feature, inside its domain (`src/domains/cart/application/cartSlice.ts`):
+  reducers and selectors live in the slice (`createSlice({ reducers, selectors })`).
+- Components read with `useAppSelector(selectX)` and write with `useAppDispatch()(action())`
+  (typed hooks in `src/hooks/`). Never plain `useSelector`/`useDispatch`.
+- Components that touch the store live in the domain's `presentation/`, not in
+  `src/components/` (ArchGuard `no-store-in-shared-component`). Shared components take the
+  connected part as a prop/slot (e.g. `ProductCard`'s `action`, `Header`'s `actions`).
+- `src/store/store.ts` imports the domain's `application/` and `infrastructure/` barrels, not the
+  domain root `index.ts`: the root also exports components, which import the typed hooks, which
+  import the store's types (a cycle).
+- Tests: render with `<AppProviders store={setupStore({ cart: ... })}>`; `setupStore()` gives a
+  fresh store per test.
 
 ## Filter popups: pending vs applied
 

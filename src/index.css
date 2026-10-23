@@ -4,5 +4,94 @@
 @theme {
   --color-brand: #2563eb;
   --color-brand-foreground: #ffffff;
+  --color-error: #bb1623; /* Figma "Color Guidance" Error 40 */
+
+  /* Surfaces, text and lines, sampled from the Figma login/signup/products screens */
+  --color-surface: #f9f9ff; /* header, page background */
+  --color-surface-muted: #f2f2ff; /* main content area, panels */
+  --color-sidebar: #dce1f4;
+  --color-sidebar-active: #edf0fb; /* active nav item, hover */
+  --color-outline: #d2d7ea; /* dividers, borders */
+  --color-on-surface: #111827; /* body text */
+  --color-on-surface-muted: #646f84; /* secondary text */
+  --color-accent: #06c4bd; /* avatar, notification bell */
+  --color-warning: #f2994a; /* "Attention" and "Delete" modal icon */
+  --color-success: #27ae60; /* "Product Added Successfully" modal icon */
+  --color-placeholder: #e6e6e6; /* "Product image not available" tile */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Typography (Figma "Typography"). Sizes are Figma px / 16. Letter spacing is in px. */
+  --font-poppins: 'Poppins', sans-serif;
+
+  /* Display: Figma gives no weight, so none is set here */
+  --text-display-large: 3.5625rem; /* 57/64 . -0.25 */
+  --text-display-large--line-height: 4rem;
+  --text-display-large--letter-spacing: -0.25px;
+  --text-display-medium: 2.8125rem; /* 45/52 . 0 */
+  --text-display-medium--line-height: 3.25rem;
+  --text-display-medium--letter-spacing: 0px;
+  --text-display-small: 2.25rem; /* 36/44 . 0 */
+  --text-display-small--line-height: 2.75rem;
+  --text-display-small--letter-spacing: 0px;
+
+  /* Headline: Figma gives no weight, so none is set here */
+  --text-headline-large: 2rem; /* 32/40 . 0 */
+  --text-headline-large--line-height: 2.5rem;
+  --text-headline-large--letter-spacing: 0px;
+  --text-headline-medium: 1.75rem; /* 28/36 . 0 */
+  --text-headline-medium--line-height: 2.25rem;
+  --text-headline-medium--letter-spacing: 0px;
+  --text-headline-small: 1.5rem; /* 24/32 . 0 */
+  --text-headline-small--line-height: 2rem;
+  --text-headline-small--letter-spacing: 0px;
+
+  /* Title */
+  --text-title-large: 1.375rem; /* Regular 22/28 . 0 */
+  --text-title-large--line-height: 1.75rem;
+  --text-title-large--letter-spacing: 0px;
+  --text-title-large--font-weight: 400;
+  --text-title-medium: 1rem; /* Medium 16/24 . +0.15 */
+  --text-title-medium--line-height: 1.5rem;
+  --text-title-medium--letter-spacing: 0.15px;
+  --text-title-medium--font-weight: 500;
+  --text-title-small: 0.875rem; /* Medium 14/20 . +0.1 */
+  --text-title-small--line-height: 1.25rem;
+  --text-title-small--letter-spacing: 0.1px;
+  --text-title-small--font-weight: 500;
+
+  /* Label */
+  --text-label-large: 0.875rem; /* Medium 14/20 . +0.1 */
+  --text-label-large--line-height: 1.25rem;
+  --text-label-large--letter-spacing: 0.1px;
+  --text-label-large--font-weight: 500;
+  --text-label-medium: 0.75rem; /* Medium 12/16 . +0.5 */
+  --text-label-medium--line-height: 1rem;
+  --text-label-medium--letter-spacing: 0.5px;
+  --text-label-medium--font-weight: 500;
+  --text-label-small: 0.6875rem; /* Medium 11/16 . +0.5 (blurry in screenshot, confirm) */
+  --text-label-small--line-height: 1rem;
+  --text-label-small--letter-spacing: 0.5px;
+  --text-label-small--font-weight: 500;
+
+  /* Body: Figma gives no weight, so none is set here */
+  --text-body-large: 1rem; /* 16/24 . +0.5 */
+  --text-body-large--line-height: 1.5rem;
+  --text-body-large--letter-spacing: 0.5px;
+  --text-body-medium: 0.875rem; /* 14/20 . +0.25 */
+  --text-body-medium--line-height: 1.25rem;
+  --text-body-medium--letter-spacing: 0.25px;
+  --text-body-small: 0.75rem; /* 12/16 . +0.4 (blurry in screenshot, confirm) */
+  --text-body-small--line-height: 1rem;
+  --text-body-small--letter-spacing: 0.4px;
+
+  /* Loading placeholders: a light band sweeping across (see src/components/shimmer.ts) */
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+  @keyframes shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: -100% 0;
+    }
+  }
 }

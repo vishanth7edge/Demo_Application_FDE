@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none">
+  <!-- Stand-in for the Figma "Vendor Assigned" empty-state illustration. -->
+  <rect x="58" y="24" width="112" height="160" rx="10" fill="#3b6ff5"/>
+  <rect x="66" y="34" width="96" height="142" rx="6" fill="#ffffff"/>
+  <rect x="94" y="12" width="40" height="22" rx="6" fill="#1f2937"/>
+  <circle cx="114" cy="12" r="7" fill="#1f2937"/>
+  <circle cx="114" cy="12" r="3" fill="#ffffff"/>
+  <g fill="#d9dde8">
+    <rect x="80" y="52" width="68" height="5" rx="2.5"/>
+    <rect x="80" y="64" width="56" height="5" rx="2.5"/>
+    <rect x="80" y="84" width="68" height="5" rx="2.5"/>
+    <rect x="80" y="96" width="48" height="5" rx="2.5"/>
+    <rect x="80" y="116" width="68" height="5" rx="2.5"/>
+    <rect x="80" y="128" width="40" height="5" rx="2.5"/>
+  </g>
+  <circle cx="140" cy="156" r="12" stroke="#3b6ff5" stroke-width="2"/>
+  <path d="M134 156h12M134 152h12M134 160h12" stroke="#3b6ff5" stroke-width="2"/>
+  <circle cx="190" cy="78" r="9" fill="#f2c4a0"/>
+  <path d="M181 74a9 9 0 0 1 18 0z" fill="#3b6ff5"/>
+  <path d="M178 92h24l2 44h-28z" fill="#3b6ff5"/>
+  <path d="M182 94l8 14 8-14" stroke="#ffffff" stroke-width="2"/>
+  <path d="M180 136h8l-1 52h-6zM192 136h8l-1 52h-6z" fill="#1f2937"/>
+  <path d="M178 100l-12 14" stroke="#3b6ff5" stroke-width="6" stroke-linecap="round"/>
+</svg>
