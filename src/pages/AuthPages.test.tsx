@@ -96,7 +96,7 @@ describe('SignupPage form', () => {
     expect(screen.getByLabelText('Confirm password')).toHaveAttribute('aria-invalid', 'true')
   })
 
-  it('goes to the dashboard when valid', async () => {
+  it('goes to the login page when valid', async () => {
     const user = userEvent.setup()
     renderAt('/signup')
 
@@ -106,6 +106,6 @@ describe('SignupPage form', () => {
     await user.type(screen.getByLabelText('Confirm password'), 'abcdefg1')
     await user.click(screen.getByRole('button', { name: 'Sign up' }))
 
-    expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument()
   })
 })

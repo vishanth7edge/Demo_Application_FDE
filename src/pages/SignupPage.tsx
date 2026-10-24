@@ -36,7 +36,7 @@ export default function SignupPage(): React.JSX.Element {
     const nextErrors = validateSignupForm(values)
     setErrors(nextErrors)
     if (!hasErrors(nextErrors)) {
-      void navigate('/dashboard')
+      void navigate('/login')
     }
   }
 

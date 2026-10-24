@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 
+import { useAuth } from '../components/auth/useAuth.ts'
 import Input from '../components/Input.tsx'
 import {
   type FormErrors,
@@ -14,6 +15,7 @@ const NO_ERRORS: FormErrors<LoginValues> = { username: null, password: null }
 
 export default function LoginPage(): React.JSX.Element {
   const navigate = useNavigate()
+  const { signIn } = useAuth()
   const [values, setValues] = useState<LoginValues>({ username: '', password: '' })
   const [errors, setErrors] = useState<FormErrors<LoginValues>>(NO_ERRORS)
   const [isLoading, setIsLoading] = useState(false)
@@ -33,6 +35,7 @@ export default function LoginPage(): React.JSX.Element {
       setSubmitError(result.message)
       return
     }
+    signIn(result.data.username)
     void navigate('/dashboard')
   }
 

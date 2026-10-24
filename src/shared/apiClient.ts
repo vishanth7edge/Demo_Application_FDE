@@ -25,11 +25,14 @@ function readMessage(json: unknown): string | null {
   return null
 }
 
+type HttpMethod = 'GET' | 'POST' | 'DELETE'
+
 /**
- * POSTs JSON to `VITE_API_BASE_URL` + `path`. `parse` turns the untrusted response body into `T`
- * (return `null` when it has the wrong shape), so callers never touch an unchecked `any`.
+ * Sends a JSON request to `VITE_API_BASE_URL` + `path`. `parse` turns the untrusted response body
+ * into `T` (return `null` when it has the wrong shape), so callers never touch an unchecked `any`.
  */
-export async function apiPost<T>(
+async function apiRequest<T>(
+  method: HttpMethod,
   path: string,
   body: unknown,
   parse: (json: unknown) => T | null,
@@ -42,9 +45,10 @@ export async function apiPost<T>(
   let response: Response
   try {
     response = await fetch(`${baseUrl.replace(/\/+$/, '')}${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      method,
+      ...(body === undefined
+        ? {}
+        : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
     })
   } catch {
     return { error: true, message: NETWORK_ERROR_MESSAGE }
@@ -70,4 +74,23 @@ export async function apiPost<T>(
     return { error: true, status: response.status, message: FALLBACK_ERROR_MESSAGE }
   }
   return { error: false, data }
+}
+
+export function apiGet<T>(path: string, parse: (json: unknown) => T | null): Promise<ApiResult<T>> {
+  return apiRequest('GET', path, undefined, parse)
+}
+
+export function apiPost<T>(
+  path: string,
+  body: unknown,
+  parse: (json: unknown) => T | null,
+): Promise<ApiResult<T>> {
+  return apiRequest('POST', path, body, parse)
+}
+
+export function apiDelete<T>(
+  path: string,
+  parse: (json: unknown) => T | null,
+): Promise<ApiResult<T>> {
+  return apiRequest('DELETE', path, undefined, parse)
 }

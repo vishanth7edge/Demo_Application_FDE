@@ -24,3 +24,29 @@ export function clearToken(): void {
     // Nothing to clear if storage is unavailable.
   }
 }
+
+const USERNAME_KEY = 'auth_username'
+
+export function saveUsername(username: string): void {
+  try {
+    localStorage.setItem(USERNAME_KEY, username)
+  } catch {
+    // Storage unavailable: the name is lost on reload, the user logs in again anyway.
+  }
+}
+
+export function getUsername(): string | null {
+  try {
+    return localStorage.getItem(USERNAME_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function clearUsername(): void {
+  try {
+    localStorage.removeItem(USERNAME_KEY)
+  } catch {
+    // Nothing to clear if storage is unavailable.
+  }
+}

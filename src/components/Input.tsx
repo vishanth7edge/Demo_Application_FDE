@@ -1,5 +1,7 @@
 import { useId } from 'react'
 
+import FieldError from './FieldError.tsx'
+
 export interface InputProps {
   label: string
   value: string
@@ -44,11 +46,7 @@ export default function Input({
             : 'border-error focus-visible:ring-error'
         }`}
       />
-      {error !== null && (
-        <p id={errorId} className="text-body-small text-error">
-          {error}
-        </p>
-      )}
+      {error !== null && <FieldError id={errorId} message={error} />}
     </div>
   )
 }
