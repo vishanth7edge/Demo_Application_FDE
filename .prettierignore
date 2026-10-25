@@ -1,2 +1,5 @@
 # Vendored ArchGuard build, not project source
 packages
+
+# Original project brief, kept verbatim as reference input
+reference_doc/bugg_project.md

@@ -8,3 +8,14 @@ coverage
 .archguard
 .arcguard
 packages/arcguard/node_modules
+
+# Buggy Store local SQLite databases (recreated by `npm run db:reset`)
+/data
+
+# Playwright output
+/playwright-report
+/test-results
+/blob-report
+
+# Local reference material (project brief, QA checklist, facilitator bug reference); not committed
+/reference_doc
