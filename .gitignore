@@ -20,3 +20,4 @@ packages/arcguard/node_modules
 # Local reference material (project brief, QA checklist, facilitator bug reference); not committed
 /reference_doc
 outputs
+.claude/skills/QE-Web-QA-Agent/product_context

@@ -53,7 +53,7 @@ function loadDotEnv() {
   }
 }
 loadDotEnv();
-const PRODUCT_CONTEXT_ROOT = path.join(ROOT, '.claude', 'skills', 'web-qa-agent', 'product_context');
+const PRODUCT_CONTEXT_ROOT = path.join(ROOT, '.claude', 'skills', 'QE-Web-QA-Agent', 'product_context');
 const OUTPUTS_DIR = path.join(ROOT, 'outputs');
 const TRUST_THRESHOLD = 5;
 
