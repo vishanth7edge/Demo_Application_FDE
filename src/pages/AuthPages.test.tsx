@@ -106,6 +106,6 @@ describe('SignupPage form', () => {
     await user.type(screen.getByLabelText('Confirm password'), 'abcdefg1')
     await user.click(screen.getByRole('button', { name: 'Sign up' }))
 
-    expect(screen.getByRole('heading', { name: 'Log in' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Log in to Old Town Market' })).toBeInTheDocument()
   })
 })

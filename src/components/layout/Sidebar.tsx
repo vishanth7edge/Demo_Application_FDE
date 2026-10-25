@@ -3,6 +3,8 @@ import { NavLink } from 'react-router'
 import { useEscapeKey } from '../useEscapeKey.ts'
 import { DashboardIcon, ProductsIcon } from '../Icons.tsx'
 import { NAV_ITEMS } from './navItems.ts'
+import { useAuth } from '../auth/useAuth.ts'
+import { ChevronRightIcon } from '../Icons.tsx'
 
 export const SIDEBAR_ID = 'app-sidebar'
 
@@ -18,6 +20,7 @@ const ICONS: Record<string, React.JSX.Element> = {
 
 export default function Sidebar({ open, onClose }: SidebarProps): React.JSX.Element {
   useEscapeKey(open, onClose)
+  const { user, logout } = useAuth()
 
   return (
     <>
@@ -38,7 +41,7 @@ export default function Sidebar({ open, onClose }: SidebarProps): React.JSX.Elem
         <div className="border-b border-outline-variant px-6 pb-6">
           <img src="/old-town-logo.svg" alt="Old Town Market" className="h-15 w-auto" />
         </div>
-        <nav aria-label="Main">
+        <nav className="flex h-screen flex-col" aria-label="Main">
           <ul className="flex flex-col gap-2 pr-2">
             {NAV_ITEMS.map((item) => (
               <li key={item.to}>
@@ -60,6 +63,27 @@ export default function Sidebar({ open, onClose }: SidebarProps): React.JSX.Elem
             ))}
           </ul>
         </nav>
+        <div className="px-6" >
+          <div>
+            <button 
+              type="button"
+              className="flex items-center gap-2"
+              onClick={logout}>
+              <img className="h-7 w-7" src="/log-out-1.svg" alt="Logout"/>
+              <span>Log out</span>
+            </button>
+          </div>
+          <div className="flex items-center gap-3 mt-5">
+              <span
+                aria-hidden="true"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary-70 text-label-large text-white"
+              >
+                {user?.username.slice(0, 2).toUpperCase()}
+              </span>
+            <span >{user?.username}</span>
+            <ChevronRightIcon />
+          </div>
+        </div>
       </aside>
     </>
   )

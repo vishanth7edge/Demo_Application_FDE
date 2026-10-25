@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router'
 
-import { useAuth } from '../auth/useAuth.ts'
 import { MenuIcon } from '../Icons.tsx'
 import { getBreadcrumbs } from './navItems.ts'
 import { SIDEBAR_ID } from './Sidebar.tsx'
@@ -11,7 +10,6 @@ export interface HeaderProps {
 }
 
 export default function Header({ menuOpen, onMenuClick }: HeaderProps): React.JSX.Element {
-  const { user, logout } = useAuth()
   const { pathname } = useLocation()
   const crumbs = getBreadcrumbs(pathname)
 
@@ -53,16 +51,6 @@ export default function Header({ menuOpen, onMenuClick }: HeaderProps): React.JS
             ))}
           </ol>
         </nav>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="truncate text-label-large text-on-surface">{user?.username}</span>
-        <button
-          type="button"
-          onClick={logout}
-          className="rounded-md bg-primary px-3 py-1.5 text-label-large text-on-primary hover:opacity-90 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:outline-none"
-        >
-          Log out
-        </button>
       </div>
     </header>
   )

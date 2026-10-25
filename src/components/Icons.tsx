@@ -61,6 +61,10 @@ export function SuccessIcon(): React.JSX.Element {
   return <Icon size={36} path="M12 21a9 9 0 100-18 9 9 0 000 18zM8 12l3 3 5-6" />
 }
 
+export function CheckIcon({ size }: SizedIconProps): React.JSX.Element {
+  return <Icon path="M5 12l5 5 9-10" {...(size === undefined ? {} : { size })} />
+}
+
 export function ChevronLeftIcon(): React.JSX.Element {
   return <Icon path="M15 6l-6 6 6 6" />
 }
