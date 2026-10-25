@@ -4,6 +4,10 @@
       "type": "stdio",
       "command": "node",
       "args": ["packages/arcguard/dist/cli/index.js", "mcp", "--project", "."]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }
