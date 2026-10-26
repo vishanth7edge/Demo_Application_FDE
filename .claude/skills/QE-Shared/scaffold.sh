@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 # k6-framework-scaffold — create a ready-to-use k6 load-testing framework in the CURRENT repo.
-# Usage:  bash .claude/skills/QE-Shared/scaffold.sh [--force]
-#   (no flag) aborts if k6-performance-tests/ already exists.
-#   --force   scaffolds into an existing folder; still never overwrites an existing file.
+# Usage:  bash .claude/skills/QE-Shared/scaffold.sh [--force] [--no-install]
+#   (no flag)     aborts if k6-performance-tests/ already exists.
+#   --force       scaffolds into an existing folder; still never overwrites an existing file.
+#   --no-install  skip the k6 CLI check/install (install-k6.sh) after scaffolding.
 set -euo pipefail
 
 ROOT="k6-performance-tests"
-FORCE="${1:-}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FORCE=""
+INSTALL="yes"
+for arg in "$@"; do
+  case "$arg" in
+    --force) FORCE="--force" ;;
+    --no-install) INSTALL="no" ;;
+    *) echo "ERROR: unknown option '$arg'." >&2; exit 1 ;;
+  esac
+done
 
 if [ -d "$ROOT" ] && [ "$FORCE" != "--force" ]; then
   echo "ERROR: $ROOT/ already exists. Re-run with --force to add only missing files." >&2
@@ -93,17 +103,17 @@ w lib/http.js <<'EOF'
 // lib/http.js — shared request headers + response handling.
 import { check } from 'k6';
 
-// `token` is the full Bearer string. Each flow passes its own token.
+// token is the full Bearer string. Each flow passes its own token.
 export function authHeaders(token, extra = {}) {
   return { Authorization: token, 'Content-Type': 'application/json', ...extra };
 }
 
 // 2xx check; logs 4xx (client-side) with a short body snippet. 5xx tracked by error-rate metric.
 export function checkResponse(res, name) {
-  check(res, { [`${name} ok`]: (r) => r.status >= 200 && r.status < 300 });
+  check(res, { [${name} ok]: (r) => r.status >= 200 && r.status < 300 });
   if (res.status >= 400 && res.status < 500) {
     const body = String(res.body || '').replace(/\s+/g, ' ').slice(0, 300);
-    console.error(`FAIL ${name} | ${res.status} ${res.request.method} ${res.request.url} | ${body}`);
+    console.error(FAIL ${name} | ${res.status} ${res.request.method} ${res.request.url} | ${body});
   }
   return res;
 }
@@ -136,14 +146,14 @@ import { check } from 'k6';
 export async function expectVisible(page, selector, name, timeout = 10000) {
   let ok = false;
   try { await page.locator(selector).waitFor({ state: 'visible', timeout }); ok = true; } catch (e) { ok = false; }
-  check(ok, { [`${name} visible`]: (v) => v === true });
+  check(ok, { [${name} visible]: (v) => v === true });
   return ok;
 }
 // Element gone within timeout ms (e.g. a spinner cleared).
 export async function expectHidden(page, selector, name, timeout = 15000) {
   let ok = false;
   try { await page.locator(selector).waitFor({ state: 'hidden', timeout }); ok = true; } catch (e) { ok = false; }
-  check(ok, { [`${name} settled`]: (v) => v === true });
+  check(ok, { [${name} settled]: (v) => v === true });
   return ok;
 }
 // Best-effort screenshot (never fails the iteration).
@@ -162,7 +172,7 @@ const JSON_HEADERS = { 'Content-Type': 'application/json' };
 
 // Example: POST /auth/sign-in -> returns a session (for a two-step OTP flow) or a token.
 export function signIn(tags) {
-  const res = http.post(`${BASE}/auth/sign-in`,
+  const res = http.post(${BASE}/auth/sign-in,
     JSON.stringify({ username: CREDS.username, password: CREDS.password }),
     { headers: JSON_HEADERS, tags: { name: 'auth-sign-in', ...tags } });
   checkResponse(res, 'auth-sign-in');
@@ -173,26 +183,26 @@ EOF
 
 w protocol/api/exampleUser/sample.js <<'EOF'
 // protocol/api/exampleUser/sample.js — ENDPOINTS: one function per API call. Copy this shape
-// for each endpoint (add a unique `name` tag so it shows per-endpoint in Grafana).
+// for each endpoint (add a unique name tag so it shows per-endpoint in Grafana).
 import http from 'k6/http';
 import { BASE, TEST_DATA } from '../../../config/env.js';
 import { authHeaders, checkResponse } from '../../../lib/http.js';
 
 export function list(token, tags) {
-  const res = http.get(`${BASE}/sample/list?page=1&limit=10`,
+  const res = http.get(${BASE}/sample/list?page=1&limit=10,
     { headers: authHeaders(token), tags: { name: 'sample-list', ...tags } });
   return checkResponse(res, 'sample-list');
 }
 
 export function get(token, tags) {
-  const res = http.get(`${BASE}/sample/get/${TEST_DATA.sampleId}`,
+  const res = http.get(${BASE}/sample/get/${TEST_DATA.sampleId},
     { headers: authHeaders(token), tags: { name: 'sample-get', ...tags } });
   return checkResponse(res, 'sample-get');
 }
 
 // ⚠️ WRITE example — mark write:true in the flow so ENABLE_WRITES can gate it.
 // export function create(token, tags) {
-//   const res = http.post(`${BASE}/sample`, JSON.stringify({ /* ... */ }),
+//   const res = http.post(${BASE}/sample, JSON.stringify({ /* ... */ }),
 //     { headers: authHeaders(token), tags: { name: 'sample-create', ...tags } });
 //   return checkResponse(res, 'sample-create');
 // }
@@ -265,19 +275,19 @@ EOF
 
 w protocol/tests/spike/README.md <<'EOF'
 # Spike tests
-Copy a load test here and swap the profile to `spikeProfile` (config/profiles.js) — a sudden
+Copy a load test here and swap the profile to spikeProfile (config/profiles.js) — a sudden
 burst then a quick drop, to check the system survives/recovers from a surge.
 EOF
 
 w protocol/tests/breakpoint/README.md <<'EOF'
 # Breakpoint tests
-Ramp load upward until it breaks (find capacity). Use `breakpointProfile` and pair with an
-`abortOnFail` threshold so the run stops at the breaking point.
+Ramp load upward until it breaks (find capacity). Use breakpointProfile and pair with an
+abortOnFail threshold so the run stops at the breaking point.
 EOF
 
 w protocol/tests/endurance/README.md <<'EOF'
 # Endurance (soak) tests
-Moderate, sustained load for hours (memory leaks, resource growth). Use `enduranceProfile`.
+Moderate, sustained load for hours (memory leaks, resource growth). Use enduranceProfile.
 EOF
 
 # ---------------------------------------------------------------- browser/ (OPTIONAL)
@@ -293,7 +303,7 @@ const SEL = {
 };
 
 export async function login(page) {
-  await page.goto(`${UI_BASE}/login`, { waitUntil: 'networkidle' });
+  await page.goto(${UI_BASE}/login, { waitUntil: 'networkidle' });
   await page.locator(SEL.username).fill(CREDS.username);
   await page.locator(SEL.password).fill(CREDS.password);
   await page.locator(SEL.submit).click();
@@ -326,7 +336,7 @@ export async function exampleUiJourney() {
   try {
     await loginPage.login(page);
     const ok = await samplePage.assertLoaded(page);
-    await shot(page, `screenshots/example-${ok ? 'ok' : 'FAIL'}.png`);
+    await shot(page, screenshots/example-${ok ? 'ok' : 'FAIL'}.png);
   } finally {
     await page.close();
   }
@@ -364,25 +374,31 @@ EOF
 w README.md <<'EOF'
 # k6 Performance & UX Test Framework
 
-Two layers, sharing `config/` + `lib/`:
-- **protocol/** — API / HTTP load (the CORE, every app). api/ (endpoints) -> flows/ (weighted
+Two layers, sharing config/ + lib/:
+**protocol/** — API / HTTP load (the CORE, every app). api/ (endpoints) -> flows/ (weighted
   traffic-split + thresholds) -> tests/ (wire a flow to a load profile).
-- **browser/** — real-browser UX (OPTIONAL; UI-heavy apps only). Delete this folder if unneeded.
+**browser/** — real-browser UX (OPTIONAL; UI-heavy apps only). Delete this folder if unneeded.
 
 ## Fill in
-1. `config/env.js` — BASE / UI_BASE / PROJECT_ID / scale numbers / test data.
-2. `config/secrets.js` — auth token(s) (keep out of VCS).
-3. `protocol/api/**` — one function per real endpoint.
-4. `protocol/flows/**` — weighted action table (feature-usage %) + thresholds (SLA).
+1. config/env.js — BASE / UI_BASE / PROJECT_ID / scale numbers / test data.
+2. config/secrets.js — auth token(s) (keep out of VCS).
+3. protocol/api/** — one function per real endpoint.
+4. protocol/flows/** — weighted action table (feature-usage %) + thresholds (SLA).
 
 ## Run (from inside this folder)
-```
 k6 cloud login --token <GRAFANA_CLOUD_TOKEN>
 k6 run       protocol/tests/smoke/example.smoke.js    # local sanity
 k6 cloud run protocol/tests/load/example.load.js       # on Grafana Cloud
 # browser (optional): k6 run browser/tests/exampleUi.browser.js
-```
 EOF
 
 echo "Done. Structure created under $ROOT/"
+
+# ---------------------------------------------------------------- k6 CLI
+# A failed install never fails the scaffold — the files are already written.
+if [ "$INSTALL" = "yes" ]; then
+  bash "$SCRIPT_DIR/install-k6.sh" ||
+    echo "WARN: k6 install failed; install it manually: https://grafana.com/docs/k6/latest/set-up/install-k6/" >&2
+fi
+
 echo "Next: fill config/env.js + config/secrets.js, then replace the example endpoints/flows."
